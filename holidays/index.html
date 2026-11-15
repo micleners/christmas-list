@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex">
+<title>Holiday Events 2026</title>
+<!-- GENERATED from template.html by holidays.mjs build. Edit the template or the .md, not index.html. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+<style>
+  /* Charcoal base so red and green carry the page: red for headings and Del, green for dates
+     and Go. No yellow. Small text meets WCAG AA on --card (lowest: --red-text 4.6:1);
+     --red-head is headings only (large text, 3:1 rule; 4.3:1 on --bg).
+     Go and Del never rely on color alone: ✓/✕, star + bold vs. strikethrough + dim. */
+  :root {
+    --bg: #1c1617; --card: #2a2122; --card-hi: #2f2a26; --line: #4a3a3c;
+    --text: #f3ebdd; --muted: #c2b5a8; --dim: #8a7c74;
+    --red-head: #e0404f; --red-text: #e85d67; --green-text: #3fb56e;
+    --go: #155c3a; --go-hi: #2e8a58; --red: #8e1626; --red-hi: #b3212f;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; color: var(--text); padding: 0 16px 48px;
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(255,255,255,.06) 0 1.5px, transparent 2px) 0 0 / 90px 90px,
+      radial-gradient(circle at 60% 40%, rgba(255,255,255,.05) 0 1px, transparent 1.5px) 0 0 / 70px 70px,
+      var(--bg);
+  }
+  main { max-width: 760px; margin: 0 auto; }
+  header { padding: 22px 0 10px; text-align: center; }
+  h1 {
+    margin: 0; font-family: "Mountains of Christmas", Georgia, serif; font-weight: 700;
+    font-size: clamp(2rem, 8vw, 2.8rem); line-height: 1.1; color: var(--red-head);
+    text-shadow: 0 2px 0 rgba(0,0,0,.35);
+  }
+  .stripe {
+    height: 6px; border-radius: 3px; margin: 10px auto 0; max-width: 320px;
+    background: repeating-linear-gradient(-45deg, var(--red) 0 10px, var(--text) 10px 14px, var(--go) 14px 24px, var(--text) 24px 28px);
+  }
+  .sub { color: var(--muted); font-size: .85rem; margin: 10px 0 0; }
+  #status { color: var(--green-text); }
+  #status.warn { color: var(--red-text); }
+  details.key { color: var(--muted); font-size: .8rem; margin: 8px auto 0; max-width: 560px; }
+  details.key summary { cursor: pointer; }
+  nav {
+    display: flex; gap: 8px; overflow-x: auto; padding: 10px 0 8px; scrollbar-width: none;
+    position: sticky; top: 0; z-index: 2;
+    background: linear-gradient(var(--bg) 82%, transparent);
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a, nav button {
+    flex: none; font: inherit; font-size: .85rem; color: var(--text); text-decoration: none; cursor: pointer;
+    padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--card);
+  }
+  nav a:hover, nav button:hover { border-color: var(--red-hi); }
+  #goOnly { border-color: var(--go-hi); color: var(--green-text); font-weight: 600; }
+  #goOnly[aria-pressed="true"] { background: var(--go); border-color: var(--go-hi); color: #fff; }
+  section { margin-top: 22px; scroll-margin-top: 56px; }
+  h2 { font-size: 1.15rem; margin: 0 0 4px; color: var(--red-head); }
+  h3 {
+    display: flex; align-items: baseline; gap: 8px; margin: 18px 0 6px;
+    font-size: .95rem; color: var(--green-text); border-bottom: 1px dashed var(--line); padding-bottom: 4px;
+  }
+  h3 small { color: var(--muted); font-weight: 400; font-size: .8rem; }
+  .rows { display: grid; gap: 8px; }
+  .row {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 10px 12px; transition: opacity .15s, background .15s, border-color .15s;
+  }
+  .body { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+  .when { color: var(--muted); font-size: .8rem; line-height: 1.35; }
+  .when b { color: var(--green-text); font-weight: 600; }
+  .title { font-size: .98rem; line-height: 1.35; margin-top: 2px; }
+  .meta { color: var(--muted); font-size: .8rem; line-height: 1.35; margin-top: 3px; }
+  a { color: inherit; text-decoration-color: rgba(243,235,221,.35); text-underline-offset: 3px; }
+  a:hover { color: var(--green-text); text-decoration-color: currentColor; }
+  code { font-size: .85em; }
+
+  /* Pill toggles, side by side on the right. Real checkboxes, visually hidden but focusable. */
+  .ticks { flex: none; display: flex; gap: 6px; }
+  .tick { position: relative; cursor: pointer; user-select: none; }
+  .tick input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .tick span {
+    display: inline-flex; align-items: center; justify-content: center; min-width: 46px; height: 32px;
+    padding: 0 10px; border-radius: 999px; font-size: .8rem; font-weight: 600;
+    border: 1.5px solid var(--line); color: var(--muted); background: transparent;
+  }
+  .tick input:focus-visible + span { outline: 2px solid var(--text); outline-offset: 2px; }
+  .tick.go span { border-color: var(--go); color: var(--green-text); }
+  .tick.del span { border-color: var(--red); color: var(--red-text); }
+  .tick.go input:checked + span { background: var(--go); border-color: var(--go-hi); color: #fff; }
+  .tick.go input:checked + span::before { content: "✓ "; white-space: pre; }
+  .tick.del input:checked + span { background: var(--red); border-color: var(--red-hi); color: #fff; }
+  .tick.del input:checked + span::before { content: "✕ "; white-space: pre; }
+
+  /* Go: enhance. */
+  .row.go { background: var(--card-hi); border: 2px solid var(--go-hi); box-shadow: 0 0 0 3px rgba(79,154,118,.15); }
+  .row.go .title { font-size: 1.12rem; font-weight: 700; }
+  .row.go .title::before { content: "★ "; color: var(--green-text); }
+  .row.go .meta { color: var(--text); }
+  /* Del: diminish (wins over Go). */
+  .row.del { opacity: .5; background: transparent; border: 1px dashed var(--line); box-shadow: none; }
+  .row.del .title { font-size: .85rem; font-weight: 400; text-decoration: line-through; color: var(--dim); }
+  .row.del .title::before { content: none; }
+  .row.del .when, .row.del .meta { color: var(--dim); font-size: .72rem; }
+  .row.del .when b { color: var(--dim); }
+
+  /* Go-only filter. */
+  body.go-only .row:not(.go) { display: none; }
+  .empty { color: var(--muted); text-align: center; margin: 32px 0; display: none; }
+  body.go-only .empty.show { display: block; }
+
+  .gaps { color: var(--muted); font-size: .85rem; padding-left: 18px; }
+  footer { color: var(--muted); font-size: .8rem; margin-top: 28px; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Holiday Events</h1>
+    <div class="stripe" aria-hidden="true"></div>
+    <p class="sub">Des Moines area · Nov. 15, 2026 to Jan. 4, 2027 · <span id="status">loading…</span></p>
+    <details class="key"><summary>What ✅ and ❓ mean</summary><p id="key"></p></details>
+  </header>
+  <nav id="nav" aria-label="Sections"></nav>
+  <p class="empty" id="empty">Nothing marked Go yet. 🎁</p>
+  <div id="app"></div>
+  <footer id="foot"></footer>
+</main>
+
+<script>
+/* CONFIG
+   api: Cloudflare Worker base URL, injected by holidays.mjs build from its API constant.
+   Empty = ticks save to this browser only. */
+const CONFIG = {
+  api: "https://holidays-state.micleners.workers.dev",
+};
+const DATA = {"built":"2026-11-15","key":"**Status key:** ✅ a source showed 2026 dates; ❓ year unclear, snippet only, a link that showed last year's dates, or a date conflict. Links go to the organizer's page where found, else the best listing.","sections":[{"id":"free-chronological","title":"Free, chronological","intro":[],"rows":[{"id":"0b1f37b55e5b","cols":[["Date","Nov 13-Dec 31 nightly"],["Event","[Uptown Wonderlights](https://www.traveliowa.com/calendar/uptown-wonderlights/1654278/) ✅"],["Where","Uptown Ankeny, SW 3rd St"],["Time","evenings"]]},{"id":"85a20109d6b0","cols":[["Date","Thu Nov 19, Dec 3, 10, 17"],["Event","[Jingle in the Junction](https://valleyjunction.com/valley-junction-events/jingle-in-the-junction-4/) ✅"],["Where","Valley Junction, WDM"],["Time","5-8pm"]]},{"id":"551aba018642","cols":[["Date","Fri Nov 20, 27, Dec 4, 11, 18"],["Event","[Holiday Promenade](https://dsmpartnership.com/downtowndsmusa/experiencing-downtown/festivals-and-markets/holiday-promenade) ❓ (organizer page showed 2025; 2026 dates via [listing](https://desmoinesparent.com/holiday-events-des-moines/))"],["Where","East Village"],["Time","5-8pm"]]},{"id":"2424e13bb8d5","cols":[["Date","Fri Nov 20"],["Event","[Brenton Skating Plaza opening + tree lighting](https://www.dsmpartnership.com/news-media/news/partnership-news/brenton-skating-plaza-opens-for-winter-season-on-nov-20) (skating paid)"],["Where","downtown"],["Time","5-9pm"]]},{"id":"88b11d113d6c","cols":[["Date","Sat Nov 21"],["Event","[Tinseltown opening](https://www.waterworkspark.org/event/tinseltown/) ✅: carolers, tree lighting, St. Nicholas and reindeer (bike ride paid). [Daily run Nov 22-Dec 14](https://www.waterworkspark.org/event/scheels-outdoor-adventure-series-featuring-tour-de-lights/) ❓"],["Where","Water Works Park"],["Time","1-8pm, lighting 6pm"]]},{"id":"0298b006ac3d","cols":[["Date","Sat Nov 21"],["Event","[Outlets of Des Moines tree lighting](https://desmoinesmom.com/christmas-tree-lightings-in-des-moines/) ❓"],["Where","Altoona"],["Time","5-7pm"]]},{"id":"a836fc79ec2b","cols":[["Date","Sun Nov 22"],["Event","[Fall Makers Market](https://desmoinesparent.com/holiday-events-des-moines/) ✅"],["Where","Jester Park, Granger"],["Time","11-4"]]},{"id":"3aa5b604db20","cols":[["Date","Sun Nov 22"],["Event","[Indianola Home for the Holidays](https://www.indianolachamber.com/lighted-parade) ❓ (page shows Nov 22 with no year; that's a Sunday in 2026, so likely 2025): lighted parade, Santa, carolers"],["Where","downtown Indianola"],["Time","7:30pm kickoff"]]},{"id":"44b78807fcae","cols":[["Date","Tue Nov 24"],["Event","[Miracle on 86th tree lighting](https://urbandale.org/1100/Miracle-on-86th-Street) ✅, cocoa, cookies; park open to Jan 6"],["Where","Urbandale"],["Time","5:30-6:30pm"]]},{"id":"bdf8fa7d86b6","cols":[["Date","Fri Nov 27"],["Event","[Perry lighted parade](https://desmoinesparent.com/holiday-parades-iowa/) ❓ (\"expected\")"],["Where","Perry"],["Time","7pm"]]},{"id":"e41fd2a3e046","cols":[["Date","Sat Nov 28"],["Event","[Christmas in Olde Town](https://desmoinesparent.com/holiday-events-des-moines/) ✅: Santa, reindeer, s'mores, carriages"],["Where","Altoona"],["Time","2-4:30pm"]]},{"id":"dd13e97be1aa","cols":[["Date","Mon Nov 30"],["Event","[Winter's Eve tree lighting](https://www.wdm.iowa.gov/residents/community-events) ❓ (city page showed 2025; 2026 date from [listing](https://desmoinesparent.com/holiday-events-des-moines/))"],["Where","Jamie Hurd Amphitheater, WDM"],["Time","5pm"]]},{"id":"871497924682","cols":[["Date","Mon Nov 30"],["Event","[Madrid parade](https://desmoinesparent.com/holiday-parades-iowa/) ❓ (one source said Dec 1)"],["Where","Madrid"],["Time","kickoff 5:30, parade 7:30pm"]]},{"id":"a049004f1b2f","cols":[["Date","Tue Dec 1"],["Event","[Christmas in the Village + tree lighting](https://www.dsmpartnership.com/stories/pleasant-hill-holiday-guide) ❓"],["Where","Pleasant Hill"],["Time","6-8pm"]]},{"id":"de8bd9c195d6","cols":[["Date","Thu Dec 3"],["Event","[Merry and Bright Parade, tree lighting](https://desmoinesparent.com/holiday-parades-iowa/) ❓ (date conflict: Dec 3 vs Sun Dec 6)"],["Where","Bondurant"],["Time","parade ~5pm"]]},{"id":"f8b8f24777d4","cols":[["Date","Thu Dec 3"],["Event","[Gingerbread House Decorating](https://www.rallytakesthetrain.com/christmas-events/des-moines-ia) ✅ (listing; [DMPL calendar](https://www.dmpl.org/events/list))"],["Where","Franklin Ave Library"],["Time","5-7:45pm"]]},{"id":"de8a5c0d20ff","cols":[["Date","Dec 3-6, 10-13"],["Event","[Christkindlmarket](https://christkindlmarketdsm.com/about/2026-dates-and-times/) ✅ (free per organizer page; one 2025 page said ticketed)"],["Where","Principal Park"],["Time","Thu 5-9, Fri-Sat 11-9, Sun 11-5"]]},{"id":"2db6000e3d7e","cols":[["Date","Fri Dec 4"],["Event","[Clive Mayor's Tree Lighting](https://www.cityofclive.com/parkandrecreation/programs_and_events/mayors_tree_lighting.php) ✅ ([2026 date](https://business.clivechamber.org/events/details/mayor-s-tree-lighting-1403)): Santa, hayrack rides"],["Where","Clive library"],["Time","5:30-7pm"]]},{"id":"14ac1250a5da","cols":[["Date","Fri Dec 4"],["Event","[Waukee WinterFest](https://www.waukee.org/476/WinterFest) ✅: tree lighting, Santa, soup, cocoa"],["Where","Triangle Park"],["Time","6-8pm"]]},{"id":"2127dba2bb5f","cols":[["Date","Fri Dec 4"],["Event","[Grimes Holiday Celebration](https://www.grimesiowa.gov/194/Community-Events) ❓ (city page only mentions the date)"],["Where","Grimes South Sports Complex"],["Time","5-7pm"]]},{"id":"1d5deeb14a1e","cols":[["Date","Sat Dec 5"],["Event","[Holidays at the Town Center](https://johnstontowncenter.com/events/) ✅: Santa, reindeer, skating"],["Where","Johnston"],["Time","4-6pm"]]},{"id":"93a29565c937","cols":[["Date","Sat Dec 5"],["Event","[Windsor Wonderland](https://www.windsorheights.org/834/Windsor-Wonderland) ✅: wagon and train rides, petting zoo, crafts, Santa photos, ugly sweater run"],["Where","Colby Park"],["Time","no start time listed"]]},{"id":"7da1dcd95d9e","cols":[["Date","Sat Dec 5"],["Event","[Muppet Christmas Carol Movie in the Park](https://www.windsorheights.org/523/Events) ✅ date; time not found anywhere (city's [Facebook link](https://www.facebook.com/share/19DEtMx7Hv/) not opened)"],["Where","Windsor Heights"],["Time","?"]]},{"id":"089220960e55","cols":[["Date","Sat Dec 5"],["Event","[Dazzling in The District](https://theankenybrief.com/ankeny-events) ❓: tree lighting 6:30 + fireworks"],["Where","Ankeny"],["Time","2-6:30pm"]]},{"id":"8b3362b05a15","cols":[["Date","Sat Dec 5"],["Event","[Spirit of Christmas Parade](https://spiritofchristmasparade.com/) ❓ and Downtown Holiday Market ❓ (no link)"],["Where","Altoona"],["Time","parade 1pm"]]},{"id":"0c3e148dc33c","cols":[["Date","Sat Dec 5"],["Event","[Norwalk Holiday Festival + tree lighting](https://www.norwalk.org/departments_services/recreation_and_park_services/special_events/holiday_festival_and_tree_lighting_ceremony.php) ❓ (2026 not confirmed)"],["Where","Norwalk Park"],["Time","6-9pm"]]},{"id":"bad45089c938","cols":[["Date","Sun Dec 6"],["Event","[Jingle Bell Stroll with Santa photo](https://desmoinesparent.com/santa-des-moines/) ❓"],["Where","Gray's Lake"],["Time","2-4pm"]]},{"id":"c998ff06339d","cols":[["Date","Sun Dec 6"],["Event","[Sing Messiah](https://www.desmoinesperformingarts.org/whats-on) ❓"],["Where","Grace UMC, DSM"],["Time","2pm"]]},{"id":"3b35e659f1d4","cols":[["Date","Mon Dec 7"],["Event","[Family Night: Holiday Cards](https://www.rallytakesthetrain.com/christmas-events/des-moines-ia) ✅ (listing only)"],["Where","WDM library"],["Time","6:30-7:30pm"]]},{"id":"e85061749683","cols":[["Date","Thu Dec 10"],["Event","[LGBTQIA+ Community Art Gathering](https://desmoinesartcenter.org/art/ongoing-programs) ❓ (monthly free drop-in confirmed; Dec 10 not)"],["Where","Des Moines Art Center"],["Time","6-8pm"]]},{"id":"8b7056ddf19d","cols":[["Date","Fri Dec 11"],["Event","[Miracle on 3rd Street](https://www.traveliowa.com/calendar/miracle-on-3rd-street/1654283/) ✅"],["Where","Uptown Ankeny"],["Time","5-7:30pm"]]},{"id":"a6b4b4fd2174","cols":[["Date","Fri Dec 11"],["Event","[Cantus: Holidays in Harmony](https://civicmusic.org/cantus-holidays-in-harmony/) ✅ (library show free; 7:30pm Drake show cost conflicting ❓)"],["Where","Central Library"],["Time","11am-noon"]]},{"id":"d44bd6aedc47","cols":[["Date","Sat Dec 12"],["Event","[Peppermint Trail](https://desmoinesartcenter.org/event/peppermint-trail/) ✅ (date via [listing](https://desmoinesparent.com/holiday-events-des-moines/))"],["Where","Ingersoll/Grand"],["Time","9-5"]]},{"id":"1462d7b9b5ec","cols":[["Date","Sat Dec 12"],["Event","[Winter Holiday Nature Connections](https://www.rallytakesthetrain.com/christmas-events/des-moines-ia) ✅ (listing only)"],["Where","Jester Park"],["Time","1-3pm"]]},{"id":"8b11e1add411","cols":[["Date","Sat Dec 12"],["Event","[Christmas on the Hill: Candy Adventure](https://www.pleasanthillchamber.org/event/2025/12/12/newlife-church-christmas-on-the-hill-candy-adventure/543955) ❓ (link is the 2025 listing)"],["Where","NewLife Church, Pleasant Hill"],["Time","6-9pm"]]},{"id":"691f90426295","cols":[["Date","Sun Dec 13"],["Event","[Synchronized lights + live nativity drive-through](https://www.indianola-ia.com/news/a-glowing-tradition-norwalk-s-lights-live-nativity-light-up-the-season/article_4e9ad738-21cc-43b0-9a69-1cf58e97186a.html) ❓ (news article, year unclear)"],["Where","Fellowship Church, Norwalk"],["Time","5:30-8:30pm"]]},{"id":"80dea0ad8e95","cols":[["Date","Sun Dec 13"],["Event","[Free Santa pet photos](https://www.heyitsfree.net/petco-photo/) ❓ (store not found; other sources say Petco is Dec 12 and PetSmart Dec 13-14)"],["Where","Petco"],["Time","noon-2pm"]]},{"id":"5a219eb404ea","cols":[["Date","Sun Dec 13"],["Event","[Jolly Holiday Lights trolley tour](https://chartersonvine.com/event/jolly-holiday-lights-trolley-tour-12-13-530/) ✅ **$30 per person**; check in 5:20pm; tickets at chartersonvine.com/events"],["Where","departs Whiskey River, 1350 SW Vintage Pkwy, Ankeny"],["Time","5:30-7:30pm"]]},{"id":"58dbfc725069","cols":[["Date","Tue Dec 15"],["Event","[Craft & Movie: Holiday Edition](https://www.rallytakesthetrain.com/christmas-events/des-moines-ia) ✅ (listing only)"],["Where","East Side Library"],["Time","6-7:30pm"]]},{"id":"4278245c2ca9","cols":[["Date","Wed Dec 16"],["Event","[Holiday Singalong](https://www.desmoinesperformingarts.org/whats-on) ❓ (cost not listed)"],["Where","Civic Center"],["Time","6pm"]]},{"id":"ea407bbb1253","cols":[["Date","Thu Dec 17"],["Event","[Pajama Storytime](https://www.rallytakesthetrain.com/christmas-events/des-moines-ia) ✅ (listing only)"],["Where","Forest Ave Library"],["Time","6:30-7:30pm"]]},{"id":"32b80a57c09c","cols":[["Date","Fri Dec 18"],["Event","[Santa and reindeer](https://urbandale.org/1100/Miracle-on-86th-Street) ✅"],["Where","Gabus Tree Park, Urbandale"],["Time","4-6pm"]]},{"id":"78e8900b0d32","cols":[["Date","Sat Dec 19"],["Event","[Ugly Christmas Sweater Drag Brunch](https://grdn.com/drag-brunches.html) ❓ (venue page showed 2025; 2026 date via [Capital City Pride](https://calendar.capitalcitypride.org/events/list/page/2/); likely paid)"],["Where","THE GARDEN"],["Time","10am-1:30pm"]]},{"id":"1402223f99a6","cols":[["Date","Sun Dec 20"],["Event","[DIY Wrapping Paper Party](https://www.rallytakesthetrain.com/christmas-events/des-moines-ia) ✅ (listing only)"],["Where","Johnston library"],["Time","2-3pm"]]},{"id":"98069506b2c8","cols":[["Date","Dec 22-23"],["Event","[Christmas Storytime](https://www.rallytakesthetrain.com/christmas-events/des-moines-ia) ✅ (listing only)"],["Where","WDM library"],["Time","10:30-11:15am"]]},{"id":"30b4a2776957","cols":[["Date","Dec 22-24"],["Event","[Christmas Eve candlelight services](https://wdm.lutheranchurchofhope.org/christmas-eve-candlelight-services/) ❓ (dates shown may be 2025), 12 services"],["Where","Lutheran Church of Hope, WDM"],["Time","multiple"]]},{"id":"33105fc58fd7","cols":[["Date","Thu Dec 31"],["Event","[Noon Year's Eve, North Side Library](https://www.rallytakesthetrain.com/christmas-events/des-moines-ia) ✅ (listing only)"],["Where","DSM"],["Time","11-12:30"]]},{"id":"e1fb91737d0d","cols":[["Date","Thu Dec 31"],["Event","[Noon Year's Eve, WDM library](https://www.rallytakesthetrain.com/christmas-events/des-moines-ia) ✅ (listing only)"],["Where","WDM"],["Time","11:40-noon"]]},{"id":"bf31f11df41f","cols":[["Date","Nov 21-Dec 24"],["Event","[Santa's Wonderland](https://modefreefinds.com/2026/10/21/free-santa-photos-videos-and-holiday-fun-at-bass-pro-shops/) ✅: free photo, video, crafts (register); listing, not Bass Pro's page"],["Where","Bass Pro, Altoona"],["Time","store hours"]]},{"id":"6fecd2ba13bb","cols":[["Date","Nov 21-Dec 24"],["Event","[Santa photos, Jordan Creek](https://www.catchdesmoines.com/things-to-do/itineraries/the-nice-list-a-holiday-itinerary/) ❓ (usually paid)"],["Where","WDM"],["Time","mall hours"]]},{"id":"8925f60970bf","cols":[["Date","Nov 28-Dec 24"],["Event","[Santa photos, Merle Hay Mall](https://desmoinesparent.com/santa-des-moines/) ❓ (usually paid)"],["Where","DSM"],["Time","mall hours"]]}],"groups":[{"label":"All season","sub":"runs more than a week","rows":["0b1f37b55e5b","85a20109d6b0","551aba018642","bf31f11df41f","6fecd2ba13bb","8925f60970bf","de8a5c0d20ff"]},{"label":"Week of Nov. 16","sub":"Nov. 16–22","rows":["2424e13bb8d5","88b11d113d6c","0298b006ac3d","a836fc79ec2b","3aa5b604db20"]},{"label":"Week of Nov. 23","sub":"Nov. 23–29","rows":["44b78807fcae","bdf8fa7d86b6","e41fd2a3e046"]},{"label":"Week of Nov. 30","sub":"Nov. 30–Dec. 6","rows":["dd13e97be1aa","871497924682","a049004f1b2f","de8bd9c195d6","f8b8f24777d4","2db6000e3d7e","14ac1250a5da","2127dba2bb5f","1d5deeb14a1e","93a29565c937","7da1dcd95d9e","089220960e55","8b3362b05a15","0c3e148dc33c","bad45089c938","c998ff06339d"]},{"label":"Week of Dec. 7","sub":"Dec. 7–13","rows":["3b35e659f1d4","e85061749683","8b7056ddf19d","a6b4b4fd2174","d44bd6aedc47","1462d7b9b5ec","8b11e1add411","691f90426295","80dea0ad8e95","5a219eb404ea"]},{"label":"Week of Dec. 14","sub":"Dec. 14–20","rows":["58dbfc725069","4278245c2ca9","ea407bbb1253","32b80a57c09c","78e8900b0d32","1402223f99a6"]},{"label":"Week of Dec. 21","sub":"Dec. 21–27","rows":["98069506b2c8","30b4a2776957"]},{"label":"Week of Dec. 28","sub":"Dec. 28–Jan. 3","rows":["33105fc58fd7","e1fb91737d0d"]}]},{"id":"dates-unconfirmed","title":"Dates unconfirmed","intro":[],"rows":[{"id":"7eafa68613be","cols":[["Event","Lights of Hope drive-through (Lutheran Church of Hope)"],["Link","[listing](https://desmoinesparent.com/christmas-lights-des-moines/)"]]},{"id":"3ea7a9a6b2ae","cols":[["Event","Beaverdale Holiday Lights"],["Link","[listing](https://desmoinesparent.com/christmas-lights-des-moines/)"]]},{"id":"730300d9a41f","cols":[["Event","Indianola Magical Nights of Lights (Pickard Park)"],["Link","no link found"]]},{"id":"44af87c2ce0b","cols":[["Event","Julefest (Ankeny High School)"],["Link","[school page](https://www.ankenyschools.org/events/julefest/), no 2026 date"]]},{"id":"3781e7ef181c","cols":[["Event","Fri Dec 4, 7:30pm Umeri's Lessons and Carols (St. Ambrose, cost not listed)"],["Link","[Drake](https://umeri.wp.drake.edu/)"]]},{"id":"7fe71ffadc77","cols":[["Event","Terrace Hill free holiday tour, listed Dec 6 noon (a Sunday, probably last year's)"],["Link","[calendar](https://history.iowa.gov/calendar/terrace-hill-holiday-tour)"]]},{"id":"d336a73b4740","cols":[["Event","WDM Holiday Makers Market and Val Air Holiday Fair, both listed Dec 6 (probably last year's Saturday)"],["Link","[listing](https://christmas-events-near-me.com/west-des-moines-ia/)"]]},{"id":"889626ed26d3","cols":[["Event","Living nativities (First Church of the Open Bible, Urban Heights Covenant, WDM Christian Church), from an older year's article"],["Link","[article](https://new.patch.com/iowa/des-moines/live-nativities-mangers-more-des-moines)"]]}],"groups":null},{"id":"paid-for-contrast","title":"Paid, for contrast","intro":[],"rows":[{"id":"121b9eabbd1c","cols":[["Event","Festival of Trees & Lights, Iowa Events Center"],["Cost / dates","Nov 25-28, $10 (2 and under free) ✅"],["Link","[organizer](https://www.iowaeventscenter.com/events/detail/festival-of-trees-lights-5)"]]},{"id":"cca7dbe4f9da","cols":[["Event","Jolly Holiday Lights, State Fairgrounds"],["Cost / dates","Nov 20-Jan 3, $27.93 per car ❓ (organizer page showed last season)"],["Link","[organizer](https://iowastatefairgrounds.org/event-calendar/jolly-holiday-lights)"]]},{"id":"77716757dacf","cols":[["Event","Dome for the Holidays, Botanical Garden"],["Cost / dates","select evenings Nov 14-Jan 3, closed Nov 26, Dec 24, 25, Jan 1; $17 adult / $11 child ❓"],["Link","[organizer](https://dmbotanicalgarden.com/dome-for-the-holidays)"]]},{"id":"658ef5e4b28a","cols":[["Event","Holly and Ivy, Salisbury House"],["Cost / dates","Dec 5-6, $25 ❓"],["Link","[organizer](https://salisburyhouse.org/events/holly-and-ivy/)"]]},{"id":"380228773054","cols":[["Event","Winter Wonderscape, Reiman Gardens (Ames)"],["Cost / dates","Nov 27-Dec 27, $16 / $7"],["Link","[organizer](https://reimangardens.com/winter-wonderscape)"]]},{"id":"9f5839178517","cols":[["Event","Santa Express, Boone"],["Cost / dates","select Fri-Sun Nov 27-Dec 20"],["Link","[listing](https://www.rallytakesthetrain.com/blog/christmas-train-ride-iowa)"]]},{"id":"46ada09dd94a","cols":[["Event","Des Moines Symphony Holiday Brass"],["Cost / dates","Dec 19-20, $31-61 ❓"],["Link","[organizer](https://www.dmsymphony.org/concerts-events/holiday-brass-4/)"]]},{"id":"004fec6fd8ff","cols":[["Event","Science Center Noon Year's Eve"],["Cost / dates","Dec 31, with admission"],["Link","[organizer](https://www.sciowa.org/programs-and-events/special-events/noon-year-s-eve/)"]]},{"id":"cf217fda89c2","cols":[["Event","Capital City Pride Game Nights"],["Cost / dates","Dec 2 and 20, $8 ❓"],["Link","[calendar](https://calendar.capitalcitypride.org/events/list/page/2/)"]]},{"id":"bcdbcb9e1a6f","cols":[["Event","Living History Farms Family Christmas"],["Cost / dates","Dec 5, likely paid"],["Link","no link"]]}],"groups":null}]};
+const LS_KEY = "holidays-2026-state";
+const LS_FILTER = "holidays-2026-go-only";
+// Columns shown on the date line, in this order; the rest go under the title.
+const WHEN_COLS = ["Date", "Cost / dates", "Where", "Time"];
+const DATE_COLS = new Set(["Date", "Time", "Cost / dates"]);
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const md = s => esc(s)
+  .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+  .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+  .replace(/\*([^*]+)\*/g, "<em>$1</em>")
+  .replace(/`([^`]+)`/g, "<code>$1</code>");
+// "Sat Nov 21, 5-8pm" -> "Sat, Nov. 21, 5–8pm"
+const fmtDate = s => s
+  .replace(/\b(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\b(?=\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b)/g, "$1,")
+  .replace(/\b(Jan|Feb|Mar|Apr|Aug|Sep|Oct|Nov|Dec)\b(?!\.)/g, "$1.")
+  .replace(/(\d|am|pm)-(\d|[A-Z])/g, "$1–$2");
+
+let state = {};
+const statusEl = document.getElementById("status");
+const setStatus = (t, warn) => { statusEl.textContent = t; statusEl.className = warn ? "warn" : ""; };
+const rowsById = Object.fromEntries(DATA.sections.flatMap(s => s.rows.map(r => [r.id, r])));
+
+function readLocal(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } }
+function writeLocal(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+
+async function load() {
+  if (!CONFIG.api) { state = readLocal(LS_KEY) || {}; setStatus("saving to this browser only", true); return; }
+  try {
+    const r = await fetch(CONFIG.api + "/state", { cache: "no-store" });
+    if (!r.ok) throw new Error(r.status);
+    state = await r.json();
+    for (const u of Object.values(pending)) state[u.id] = { ...(state[u.id] || {}), [u.field]: u.value };
+    writeLocal(LS_KEY, state);
+    if (!Object.keys(pending).length) setStatus("synced ✓");
+  } catch { state = readLocal(LS_KEY) || {}; setStatus("offline: showing this browser's copy", true); }
+}
+
+// Saves are queued: taps within ~1s go out as one batch (KV takes one write per second per key),
+// and a failed batch retries with backoff until it lands. A newer tap on the same box wins.
+const pending = {};
+let timer = null, inflight = false, lastSent = 0, attempts = 0;
+const qkey = (id, field) => id + "|" + field;
+
+function save(id, field, value) {
+  state[id] = { ...(state[id] || {}), [field]: value };
+  writeLocal(LS_KEY, state); paint(id); refreshFilter();
+  if (!CONFIG.api) return;
+  pending[qkey(id, field)] = { id, field, value };
+  setStatus("saving…");
+  schedule(0);
+}
+
+function schedule(delay) {
+  if (timer) return;
+  timer = setTimeout(flush, Math.max(delay, lastSent + 1100 - Date.now(), 0));
+}
+
+async function flush() {
+  timer = null;
+  if (inflight) return schedule(300);
+  const batch = Object.values(pending);
+  if (!batch.length) return;
+  batch.forEach(u => delete pending[qkey(u.id, u.field)]);
+  inflight = true;
+  try {
+    const r = await fetch(CONFIG.api + "/state", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ updates: batch }),
+    });
+    if (!r.ok) throw new Error(r.status);
+    attempts = 0;
+  } catch {
+    batch.forEach(u => { pending[qkey(u.id, u.field)] ??= u; });
+    attempts++;
+  } finally {
+    inflight = false; lastSent = Date.now();
+  }
+  if (Object.keys(pending).length) {
+    if (attempts) setStatus("retrying save…", true);
+    schedule(attempts ? Math.min(30000, 1000 * 2 ** attempts) : 0);
+  } else setStatus("synced ✓");
+}
+addEventListener("online", () => { if (Object.keys(pending).length) { clearTimeout(timer); timer = null; schedule(0); } });
+
+function paint(id) {
+  const el = document.querySelector(`[data-id="${CSS.escape(id)}"]`);
+  if (!el) return;
+  const s = state[id] || {};
+  el.classList.toggle("go", !!s.go);
+  el.classList.toggle("del", !!s.del);
+  el.querySelector('[data-f="go"]').checked = !!s.go;
+  el.querySelector('[data-f="del"]').checked = !!s.del;
+}
+const paintAll = () => { Object.keys(rowsById).forEach(paint); refreshFilter(); };
+
+function renderRow(r) {
+  const get = n => (r.cols.find(c => c[0] === n) || [])[1];
+  const title = get("Event") || r.cols[0][1];
+  const when = WHEN_COLS.map(h => [h, get(h)]).filter(([, v]) => v)
+    .map(([h, v], i) => { const t = md(DATE_COLS.has(h) ? fmtDate(v) : v); return i === 0 && h !== "Where" ? `<b>${t}</b>` : t; })
+    .join(" · ");
+  const meta = r.cols.filter(([h, v]) => v && h !== "Event" && !WHEN_COLS.includes(h)).map(([, v]) => md(v)).join(" · ");
+  return `<div class="row" data-id="${esc(r.id)}">
+    <div class="body">
+      ${when ? `<div class="when">${when}</div>` : ""}
+      <div class="title">${md(title)}</div>
+      ${meta ? `<div class="meta">${meta}</div>` : ""}
+    </div>
+    <div class="ticks">
+      <label class="tick go"><input type="checkbox" data-f="go" aria-label="Go"><span>Go</span></label>
+      <label class="tick del"><input type="checkbox" data-f="del" aria-label="Delete"><span>Del</span></label>
+    </div>
+  </div>`;
+}
+
+function renderSection(s) {
+  let inner;
+  if (!s.rows.length) inner = `<ul class="gaps">${s.intro.filter(l => l.startsWith("- ")).map(l => `<li>${md(l.slice(2))}</li>`).join("")}</ul>`;
+  else if (s.groups) inner = s.groups.map(g => `
+    <div class="group hide-empty">
+      <h3>${esc(g.label)} <small>${esc(g.sub)}</small></h3>
+      <div class="rows">${g.rows.map(id => renderRow(rowsById[id])).join("")}</div>
+    </div>`).join("");
+  else inner = `<div class="rows">${s.rows.map(renderRow).join("")}</div>`;
+  return `<section id="${esc(s.id)}" class="${s.rows.length ? "hide-empty" : ""}"><h2>${esc(s.title)}</h2>${inner}</section>`;
+}
+
+// In Go-only mode, hide groups and sections with no Go rows, and the Gaps list.
+function refreshFilter() {
+  const on = document.body.classList.contains("go-only");
+  let any = false;
+  document.querySelectorAll(".hide-empty").forEach(el => {
+    const has = !!el.querySelector(".row.go");
+    el.style.display = on && !has ? "none" : "";
+    any ||= has;
+  });
+  document.querySelectorAll("section:not(.hide-empty)").forEach(el => el.style.display = on ? "none" : "");
+  document.getElementById("empty").classList.toggle("show", on && !any);
+  const n = Object.values(state).filter(s => s.go && !s.del).length;
+  const btn = document.getElementById("goOnly");
+  btn.textContent = `★ Go only${n ? ` (${n})` : ""}`;
+  btn.setAttribute("aria-pressed", on);
+}
+
+function render() {
+  document.getElementById("key").innerHTML = md(DATA.key.replace(/^\*\*Status key:\*\*\s*/, ""));
+  document.getElementById("nav").innerHTML =
+    `<button id="goOnly" type="button" aria-pressed="false">★ Go only</button>` +
+    DATA.sections.map(s => `<a href="#${esc(s.id)}">${esc(s.title)}</a>`).join("");
+  document.getElementById("app").innerHTML = DATA.sections.map(renderSection).join("");
+  document.getElementById("foot").textContent = `Built ${DATA.built} from the wiki. 🎄`;
+  document.getElementById("app").addEventListener("change", e => {
+    const f = e.target.dataset.f; if (!f) return;
+    save(e.target.closest(".row").dataset.id, f, e.target.checked);
+  });
+  document.getElementById("goOnly").addEventListener("click", () => {
+    const on = !document.body.classList.contains("go-only");
+    document.body.classList.toggle("go-only", on);
+    writeLocal(LS_FILTER, on); refreshFilter();
+  });
+  if (readLocal(LS_FILTER)) document.body.classList.add("go-only");
+}
+
+render();
+load().then(paintAll);
+// Pick up the other person's ticks when the tab comes back into view.
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && CONFIG.api) load().then(paintAll);
+});
+</script>
+</body>
+</html>
