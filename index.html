@@ -56,7 +56,7 @@
     flex: none; width: 40px; height: 54px; border-radius: 6px; object-fit: cover;
     background: var(--card-hi); display: grid; place-items: center; font-size: 1.3rem;
   }
-  .thumb.icon { height: 40px; }
+  .thumb.icon, .thumb.sq { height: 40px; }
   .body { min-width: 0; flex: 1; }
   .title { font-weight: 600; font-size: .95rem; line-height: 1.3; overflow-wrap: anywhere; }
   .desc { color: var(--muted); font-size: .8rem; line-height: 1.3; margin-top: 1px; overflow-wrap: anywhere; }
@@ -83,6 +83,7 @@
 /* CONFIG: edit groups and items here. Page re-renders from this object.
    item = { title, desc?, url?, img?, emoji?, tag? }
    img: preview image (falls back to emoji if it fails to load).
+   square: true crops img to a 40x40 square (default is a 40x54 book-cover shape).
    Groups render in order; keep "Decorative tray" last in the last group. */
 const CONFIG = {
   groups: [
@@ -127,14 +128,14 @@ const CONFIG = {
     {
       id: "games", name: "🎮 Apps & games",
       items: [
-        { title: "Finch subscription", desc: "Self-care pet app, Finch Plus. My friend code: M7VTJF41ZQ", emoji: "🐦" },
-        { title: "Minecraft Game Purchase", url: "https://www.minecraft.net/en-us/article/how-gift-minecraft", emoji: "⛏️", tag: "Minecraft.net" }
+        { title: "Finch subscription", desc: "Self-care pet app, Finch Plus. My friend code: M7VTJF41ZQ", img: "https://finchcare.com/icons/circular-pet-bird-face.svg", square: true, emoji: "🐦" },
+        { title: "Minecraft Game Purchase", url: "https://www.minecraft.net/en-us/article/how-gift-minecraft", img: "https://www.minecraft.net/content/dam/minecraftnet/franchise/logos/Homepage_Download-Launcher_Creeper-Logo_500x500.png", square: true, emoji: "⛏️", tag: "Minecraft.net" }
       ]
     },
     {
       id: "home", name: "🏡 Home, ritual & decor",
       items: [
-        { title: "Bidet for Orchard House", emoji: "🚿" },
+        { title: "Bidet for Orchard House", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/BB-1000_Supreme.jpg/330px-BB-1000_Supreme.jpg", square: true, emoji: "🚿" },
         {
           title: "A Good Keychain",
           desc: "From Etsy.",
@@ -144,20 +145,21 @@ const CONFIG = {
         {
           title: "Pillar candles",
           desc: "Other candles too. No parfum or fragrance; natural oils and herbs are good.",
+          img: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Candle_light%2C_pillar_candle.jpg", square: true,
           emoji: "🕯️"
         },
         {
           title: "Chime Candles",
-          url: "https://a.co/d/0d8WvrNW",
+          url: "https://www.amazon.com/dp/B0DFD1NT9L",
           emoji: "🕯️", tag: "Amazon"
         },
-        { title: "Incense", emoji: "🪔" },
+        { title: "Incense", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Combustible_Jasmine_Fragrance_Incense_Sticks.jpg/330px-Combustible_Jasmine_Fragrance_Incense_Sticks.jpg", square: true, emoji: "🪔" },
         {
           title: "Hecate prayer beads",
           url: "https://www.etsy.com/listing/991149504/hecate-hekate-prayer-bead-necklace-in",
           emoji: "📿", tag: "Etsy"
         },
-        { title: "Decorative tray", desc: "Style and size still open.", emoji: "🍽️" }
+        { title: "Decorative tray", desc: "Style and size still open.", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Yog%27och_lagan_1.png/330px-Yog%27och_lagan_1.png", square: true, emoji: "🍽️" }
       ]
     }
   ]
@@ -169,7 +171,7 @@ function renderItem(it) {
   const tag = it.url ? "a" : "div";
   const attrs = it.url ? ` href="${esc(it.url)}" target="_blank" rel="noopener noreferrer"` : "";
   const thumb = it.img
-    ? `<img class="thumb" src="${esc(it.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" data-emoji="${esc(it.emoji || "🎁")}">`
+    ? `<img class="thumb${it.square ? " sq" : ""}" src="${esc(it.img)}" alt="" loading="lazy" referrerpolicy="no-referrer" data-emoji="${esc(it.emoji || "🎁")}">`
     : `<div class="thumb icon" aria-hidden="true">${esc(it.emoji || "🎁")}</div>`;
   return `<${tag} class="item"${attrs}>
     ${thumb}
