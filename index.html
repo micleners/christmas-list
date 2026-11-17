@@ -66,12 +66,14 @@
   .arrow { color: var(--muted); flex: none; }
   .bottom { border-top: 1px dashed var(--line); padding-top: 4px; }
   .ribbon {
-    display: block; width: 100%; max-width: 320px; height: 14px; margin: 10px auto 0; padding: 0;
+    display: block; width: 100%; max-width: 320px; height: 14px; margin: 0 auto; padding: 0;
     border: 0; border-radius: 7px; cursor: pointer;
     background: repeating-linear-gradient(-45deg, #b3212f 0 10px, #efe8e1 10px 14px, #2e8a58 14px 24px, #efe8e1 24px 28px);
   }
+  .inbox { padding: 100px 0; }
+  .ribbon[hidden] { display: none; }
   .ribbon:focus-visible, .tree:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  #suggest { margin: 10px auto 0; max-width: 420px; text-align: center; }
+  #suggest { margin: 0 auto; max-width: 420px; text-align: center; }
   #suggest form { display: flex; gap: 6px; }
   #suggest input {
     flex: 1; min-width: 0; font: inherit; color: var(--text); background: var(--card);
@@ -93,11 +95,13 @@
     <h1>🎄 Michael's Christmas List</h1>
     <p class="sub">2026 · tap an item with an arrow to open it</p>
   </header>
-  <button class="ribbon" id="ribbon" type="button" hidden aria-label="Add an idea" aria-expanded="false"></button>
-  <div id="suggest" hidden></div>
   <nav id="nav" aria-label="Groups"></nav>
   <div id="app"></div>
   <footer>Source: Todoist, compiled 2026-11-15.</footer>
+  <div class="inbox">
+    <button class="ribbon" id="ribbon" type="button" hidden aria-label="Add an idea"></button>
+    <div id="suggest" hidden></div>
+  </div>
 </main>
 
 <script>
@@ -269,11 +273,11 @@ if (inboxKey) {
       }
     });
   };
+  // The ribbon opens the box once and stays gone until a refresh; the tree reopens the field.
   ribbon.addEventListener("click", () => {
-    const open = box.hidden;
-    box.hidden = !open;
-    ribbon.setAttribute("aria-expanded", open);
-    if (open) showForm();
+    ribbon.hidden = true;
+    box.hidden = false;
+    showForm();
   });
 }
 </script>
