@@ -65,6 +65,25 @@
   }
   .arrow { color: var(--muted); flex: none; }
   .bottom { border-top: 1px dashed var(--line); padding-top: 4px; }
+  .ribbon {
+    display: block; width: 100%; max-width: 320px; height: 14px; margin: 10px auto 0; padding: 0;
+    border: 0; border-radius: 7px; cursor: pointer;
+    background: repeating-linear-gradient(-45deg, #b3212f 0 10px, #efe8e1 10px 14px, #2e8a58 14px 24px, #efe8e1 24px 28px);
+  }
+  .ribbon:focus-visible, .tree:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  #suggest { margin: 10px auto 0; max-width: 420px; text-align: center; }
+  #suggest form { display: flex; gap: 6px; }
+  #suggest input {
+    flex: 1; min-width: 0; font: inherit; color: var(--text); background: var(--card);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 10px;
+  }
+  #suggest button.go {
+    font: inherit; color: var(--bg); background: var(--accent); border: 0; border-radius: var(--radius);
+    padding: 8px 14px; cursor: pointer;
+  }
+  #suggest button:disabled { opacity: .6; }
+  .tree { font-size: 2rem; background: none; border: 0; cursor: pointer; padding: 0; line-height: 1; }
+  .err { color: #e85d67; font-size: .8rem; margin: 4px 0 0; }
   footer { color: var(--muted); font-size: .8rem; margin-top: 24px; text-align: center; }
 </style>
 </head>
@@ -74,6 +93,8 @@
     <h1>🎄 Michael's Christmas List</h1>
     <p class="sub">2026 · tap an item with an arrow to open it</p>
   </header>
+  <button class="ribbon" id="ribbon" type="button" hidden aria-label="Add an idea" aria-expanded="false"></button>
+  <div id="suggest" hidden></div>
   <nav id="nav" aria-label="Groups"></nav>
   <div id="app"></div>
   <footer>Source: Todoist, compiled 2026-11-15.</footer>
@@ -209,6 +230,52 @@ document.querySelectorAll("img.thumb").forEach(img => {
     img.replaceWith(d);
   });
 });
+
+/* Suggestion box. The ribbon appears only when the link carried #k=<key> (kept in localStorage
+   after the first visit). Submissions go to the list-inbox Worker; Michael pulls them by hand. */
+const INBOX_API = "https://list-inbox.micleners.workers.dev";
+let inboxKey = "";
+try {
+  inboxKey = new URLSearchParams(location.hash.slice(1)).get("k") || "";
+  if (inboxKey) localStorage.setItem("listInboxKey", inboxKey);
+  else inboxKey = localStorage.getItem("listInboxKey") || "";
+} catch {}
+
+if (inboxKey) {
+  const ribbon = document.getElementById("ribbon"), box = document.getElementById("suggest");
+  ribbon.hidden = false;
+  const showForm = () => {
+    box.innerHTML = `<form><input name="t" maxlength="500" placeholder="Idea, with a link if you have one" aria-label="Idea" autocomplete="off" required>
+      <button class="go" type="submit">Submit</button></form><p class="err" id="err" hidden></p>`;
+    const form = box.querySelector("form"), input = form.t, btn = form.querySelector("button");
+    input.focus();
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      btn.disabled = true;
+      try {
+        const r = await fetch(INBOX_API + "/add", {
+          method: "POST", headers: { "content-type": "application/json", "x-key": inboxKey },
+          body: JSON.stringify({ text }),
+        });
+        if (!r.ok) throw new Error(r.status);
+        box.innerHTML = `<button class="tree" type="button" aria-label="Added. Tap to add another">🎄</button><p class="note">Added</p>`;
+        box.querySelector(".tree").addEventListener("click", showForm);
+      } catch {
+        btn.disabled = false;
+        const err = document.getElementById("err");
+        err.textContent = "Didn't save. Try again?"; err.hidden = false;
+      }
+    });
+  };
+  ribbon.addEventListener("click", () => {
+    const open = box.hidden;
+    box.hidden = !open;
+    ribbon.setAttribute("aria-expanded", open);
+    if (open) showForm();
+  });
+}
 </script>
 </body>
 </html>
